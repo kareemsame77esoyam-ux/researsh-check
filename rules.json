@@ -1,0 +1,116 @@
+[
+  {
+    "id": "rule1",
+    "description": "لا يجوز للباحث الحاصل على الدكتوراه التقديم",
+    "check": "paper.author.degree !== 'PhD'",
+    "error_message": "❌ لا يجوز للباحث الحاصل على الدكتوراه التقديم"
+  },
+  {
+    "id": "rule2",
+    "description": "البحث يجب أن يكون باللغة العربية فقط",
+    "check": "paper.language === 'Arabic'",
+    "error_message": "❌ البحث يجب أن يكون باللغة العربية فقط"
+  },
+  {
+    "id": "rule3",
+    "description": "عدد الكلمات يجب أن يكون بين 2000 و 5000",
+    "check": "paper.word_count >= 2000 && paper.word_count <= 5000",
+    "error_message": "❌ عدد الكلمات خارج النطاق المسموح (2000-5000)"
+  },
+  {
+    "id": "rule4",
+    "description": "يجب إرسال البحث بصيغة Word و PDF معًا",
+    "check": "paper.files.includes('docx') && paper.files.includes('pdf')",
+    "error_message": "❌ يجب إرسال البحث بصيغة Word و PDF معًا"
+  },
+  {
+    "id": "rule5",
+    "description": "يجب أن يكون حجم الورق A4",
+    "check": "paper.page_size === 'A4'",
+    "error_message": "❌ يجب أن يكون حجم الورق A4"
+  },
+  {
+    "id": "rule6",
+    "description": "يجب أن تكون الهوامش متوسطة",
+    "check": "paper.margins === 'medium'",
+    "error_message": "❌ يجب أن تكون الهوامش متوسطة"
+  },
+  {
+    "id": "rule7",
+    "description": "يجب الالتزام بالمسافة البادئة 1.27 سم",
+    "check": "paper.indent === 1.27",
+    "error_message": "❌ يجب الالتزام بالمسافة البادئة 1.27 سم"
+  },
+  {
+    "id": "rule8",
+    "description": "يجب الالتزام بالتباعد المفرد",
+    "check": "paper.line_spacing === 'single'",
+    "error_message": "❌ يجب الالتزام بالتباعد المفرد"
+  },
+  {
+    "id": "rule9",
+    "description": "يجب إضافة ملخص بعد العنوان",
+    "check": "paper.has_abstract === true",
+    "error_message": "❌ يجب إضافة ملخص بعد العنوان"
+  },
+  {
+    "id": "rule10",
+    "description": "يجب إضافة كلمات مفتاحية بعد الملخص",
+    "check": "paper.has_keywords === true",
+    "error_message": "❌ يجب إضافة كلمات مفتاحية بعد الملخص"
+  },
+  {
+    "id": "rule11",
+    "description": "لا يجوز استخدام ألقاب مثل دكتور أو أستاذ",
+    "check": "paper.author.name_titles === false",
+    "error_message": "❌ لا يجوز استخدام ألقاب مثل دكتور أو أستاذ"
+  },
+  {
+    "id": "rule12",
+    "description": "التنسيق يجب أن يكون حسب مواصفات الخطوط المطلوبة",
+    "check": "paper.fonts.body === 'Simplified Arabic 14' && paper.fonts.title === 'Simplified Arabic 18 Bold' && paper.fonts.subtitle === 'Simplified Arabic 16 Bold'",
+    "error_message": "❌ التنسيق غير مطابق لمواصفات الخطوط المطلوبة"
+  },
+  {
+    "id": "rule13",
+    "description": "يجب أن تكون الحواشي مرقمة أوتوماتيكياً",
+    "check": "paper.footnotes.auto_numbering === true",
+    "error_message": "❌ يجب أن تكون الحواشي مرقمة أوتوماتيكياً"
+  },
+  {
+    "id": "rule14",
+    "description": "قائمة المراجع يجب أن تكون بنظام شيكاغو",
+    "check": "paper.references_style === 'Chicago'",
+    "error_message": "❌ قائمة المراجع يجب أن تكون بنظام شيكاغو"
+  },
+  {
+    "id": "rule15",
+    "description": "يجب إرسال البحث قبل الموعد النهائي 10/10/2025",
+    "check": "new Date(paper.submission_date) <= new Date('2025-10-10')",
+    "error_message": "❌ تم إرسال البحث بعد الموعد النهائي (10/10/2025)"
+  },
+  {
+    "id": "rule16",
+    "description": "يجب إرفاق السيرة الذاتية بصيغة PDF",
+    "check": "paper.author.cv_format === 'pdf'",
+    "error_message": "❌ يجب إرفاق السيرة الذاتية بصيغة PDF"
+  },
+  {
+    "id": "rule17",
+    "description": "يجب إرفاق أي خطوط غير قياسية مستخدمة",
+    "check": "paper.non_standard_fonts_attached === true",
+    "error_message": "❌ يجب إرفاق أي خطوط غير قياسية مستخدمة"
+  },
+  {
+    "id": "rule18",
+    "description": "يجب أن تحتوي الأشكال والجداول على تعريف ومصدر",
+    "check": "paper.figures.all_have_captions_and_sources === true",
+    "error_message": "❌ يجب أن تحتوي الأشكال والجداول على تعريف ومصدر"
+  },
+  {
+    "id": "rule19",
+    "description": "العرض التقديمي يجب ألا يتجاوز 15 دقيقة",
+    "check": "paper.presentation_time <= 15",
+    "error_message": "❌ العرض التقديمي يجب ألا يتجاوز 15 دقيقة"
+  }
+]

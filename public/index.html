@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>رفع البحث الأكاديمي للتحقق</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>رفع البحث الأكاديمي للتحقق</h1>
+    <form id="uploadForm" enctype="multipart/form-data" method="POST" action="/upload">
+      <label for="fileInput">اختر ملف البحث (.docx أو .pdf):</label>
+      <div id="dropArea">
+        <p>اسحب الملف هنا أو اضغط للاختيار</p>
+        <input type="file" id="fileInput" name="paper" accept=".pdf,.docx" required />
+      </div>
+      <button type="submit">تحقق من صحة البحث</button>
+    </form>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const dropArea = document.getElementById('dropArea');
+    const fileInput = document.getElementById('fileInput');
+    const form = document.getElementById('uploadForm');
+    const resultDiv = document.getElementById('result');
+
+    // Highlight drop area on drag events
+    ['dragenter', 'dragover'].forEach(eventName => {
+      dropArea.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.classList.add('highlight');
+      }, false);
+    });
+
+    ['dragleave', 'drop'].forEach(eventName => {
+      dropArea.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropArea.classList.remove('highlight');
+      }, false);
+    });
+
+    // Handle dropped files
+    dropArea.addEventListener('drop', (e) => {
+      if (e.dataTransfer.files.length > 0) {
+        fileInput.files = e.dataTransfer.files;
+      }
+    });
+
+    // Submit form using fetch to show results dynamically
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (fileInput.files.length === 0) {
+        alert('يرجى اختيار ملف للرفع.');
+        return;
+      }
+
+      const formData = new FormData();
+      formData.append('paper', fileInput.files[0]);
+
+      resultDiv.textContent = 'جاري التحقق...';
+
+      try {
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        const data = await response.json();
+
+        if (data.valid) {
+          resultDiv.innerHTML = `<p class="success">✅ التقديم صالح وجاهز.</p>`;
+        } else {
+          resultDiv.innerHTML = `<p class="error">التقديم يحتوي على الأخطاء التالية:</p><ul>${data.errors.map(e => `<li>${e}</li>`).join('')}</ul>`;
+        }
+      } catch (err) {
+        resultDiv.textContent = 'حدث خطأ أثناء التحقق من البحث.';
+      }
+    });
+  </script>
+</body>
+</html>

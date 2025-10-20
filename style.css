@@ -1,0 +1,93 @@
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f0f4f8;
+  color: #333;
+  margin: 0;
+  padding: 20px;
+  direction: rtl;
+  text-align: right;
+}
+
+.container {
+  max-width: 480px;
+  margin: 40px auto;
+  background: white;
+  padding: 25px 30px;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+h1 {
+  margin-bottom: 20px;
+  color: #004d99;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+#dropArea {
+  border: 2px dashed #007acc;
+  border-radius: 8px;
+  padding: 30px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: background-color 0.3s ease;
+  color: #007acc;
+  font-size: 16px;
+  position: relative;
+}
+
+#dropArea input[type="file"] {
+  position: absolute;
+  opacity: 0;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+}
+
+#dropArea.highlight {
+  background-color: #e6f2ff;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007acc;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+#result {
+  margin-top: 20px;
+  font-size: 16px;
+}
+
+.success {
+  color: #4f8a10;
+  font-weight: bold;
+}
+
+.error {
+  color: #d8000c;
+  font-weight: bold;
+}
+
+.error ul {
+  margin-top: 10px;
+  padding-right: 20px;
+}
